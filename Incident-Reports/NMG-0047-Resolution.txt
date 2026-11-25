@@ -1,0 +1,21 @@
+1. Jane's User Identify is in the operations OU
+2. Jane Cooper is in the Operations OU, but she should be in the HR OU. Because she is an HR Payroll Specialist.
+3. Jane Cooper is currently a member of Operation-Users. She should be a member of HR-Users.
+
+
+Support ticket NMG-0047 was recieved from Brain Foster about Jane Cooper's inability to access the information necessary
+to complete her work, as well as the application of incorrect desktop policies. Upon investigation, I identified that Jane 
+had been incorrectly assigned to the Operation-Users OU, instead of HR-Users, which aligns with her role as an HR Payroll 
+Specialist. This misconfiguration resulted in an incorrect scope of access and the improper application of Group Policies,
+preventing her from accessing the appropriate resources and desktop settings required for her position.
+
+
+Ticket number: NMG-0047
+Affected user: Jane Cooper (jcooper@NMG.com)
+Issue reported: Unable to access HR shared resources. Desktop policies and mapped drives differ from teammates.
+Root cause: This misconfiguration resulted in an incorrect scope of access and the improper application of Group Policies,
+preventing her from accessing the appropriate resources and desktop settings required for her position.
+Fix applied: To fix this issue I moved Jane Cooper into the correct OU for HR. I also changed her security group to HR-Users.
+Verification: I confirmed the issue was resolved by reviewing the OU and the Security Group Members List and taking screenshots.
+Date resolved: 11-24-2026
+Resolved by: Moriah Kantar
