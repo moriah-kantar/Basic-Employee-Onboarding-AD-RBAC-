@@ -16,88 +16,99 @@
 
 ---
 
-## 2. Issue Reported
+## 2. Problem Statement
 
-The affected user was unable to access HR shared 
-resources required to perform her assigned job 
-responsibilities.
+Northstar Medical Group lacked a standardized employee
+onboarding and access provisioning process, resulting
+in inconsistent identity configurations within its
+Active Directory environment.
 
-Additionally, her desktop policies and mapped drives 
-were inconsistent with those of other HR employees.
+These inconsistencies introduced operational disruptions,
+potential unauthorized access, and identity-related
+compliance risks.
 
-The user was able to authenticate successfully, and 
+An investigation was required to identify and remediate
+the affected user's configuration while ensuring alignment
+with the organization's role-based access control
+(RBAC) structure.
+
+---
+
+## 3. Issue Reported
+
+Jane Cooper was unable to access HR shared resources
+required to perform her assigned job responsibilities.
+
+Additionally, her desktop policies and mapped drives
+were inconsistent with those of her HR teammates.
+
+The user was able to authenticate successfully, and
 restarting her workstation did not resolve the issue.
 
 ---
 
-## 3. Investigation
+## 4. Investigation
 
-The investigation focused on the affected user's 
-Active Directory configuration, specifically her 
-organizational unit placement and security group 
-membership.
+Since the affected user could successfully authenticate,
+the investigation focused on identity configuration
+rather than credential-related issues.
 
-The following discrepancies were identified:
+Using Active Directory Users and Computers (ADUC),
+the user's organizational unit placement and security
+group memberships were reviewed.
+
+### Investigation Findings
 
 | Configuration | Observed State | Expected State |
 |---|---|---|
 | Organizational Unit (OU) | Operations | HR |
 | Security Group | Operations-Users | HR-Users |
-| Department | HR | HR |
 | Authentication | Successful | Successful |
 
-The findings indicated that the issue was related 
-to identity provisioning and access configuration 
-rather than an authentication failure.
+The identified discrepancies were documented before
+any corrective actions were performed.
 
 ---
 
-## 4. Root Cause Analysis
+## 5. Root Cause Analysis
 
-The incident originated from incorrect identity 
+The incident originated from incorrect identity
 provisioning during the employee onboarding process.
-
-Two primary configuration issues were identified:
 
 ### Incorrect Organizational Unit Placement
 
-Jane Cooper's account was located in the Operations 
-OU rather than the HR OU. This created an incorrect 
-scope for applicable departmental Group Policies.
+The incorrect OU placement resulted in the user's
+account being associated with an inappropriate scope
+for departmental Group Policies.
 
 ### Incorrect Security Group Assignment
 
-The user's security group membership was inconsistent 
-with her assigned department and intended resource 
-access requirements.
+The user's security group assignment did not align
+with her designated job responsibilities or intended
+resource access requirements.
 
-Both configuration issues required remediation to 
-align the user's identity with the organization's 
-role-based access control (RBAC) structure.
+These were independent configuration issues requiring
+separate corrective actions.
 
 ---
 
-## 5. Remediation
+## 6. Remediation
 
-The following corrective actions were performed 
-using Active Directory Users and Computers (ADUC):
+The following corrective actions were performed using
+Active Directory Users and Computers (ADUC):
 
-1. Located Jane Cooper's user account.
-2. Reviewed the existing organizational unit placement.
-3. Reviewed the user's security group memberships.
-4. Moved the user account from the Operations OU 
+1. Moved Jane Cooper's account from the Operations OU
    to the HR OU.
-5. Corrected the user's security group assignment 
+2. Corrected the user's security group assignment
    to HR-Users.
-6. Reviewed and verified the updated Active Directory 
-   configuration.
-7. Captured screenshots to document the remediation.
+3. Reviewed the updated account configuration.
+4. Captured screenshots to document the corrective actions.
 
 ---
 
-## 6. Verification
+## 7. Verification
 
-The following configuration checks were completed 
+The following configuration checks were completed
 after remediation:
 
 - [x] Verified the user account was located in the HR OU.
@@ -106,29 +117,29 @@ after remediation:
 - [x] Captured supporting screenshot evidence.
 - [x] Documented the investigation and corrective actions.
 
-End-to-end testing of shared resource access and 
-Group Policy application would be the next validation 
+End-to-end testing of shared resource access and
+Group Policy application would be the next validation
 step in a production environment.
 
 ---
 
-## 7. Security and Business Impact
+## 8. Security and Business Impact
 
-The corrected configuration supports the following 
+The corrected configuration supports the following
 security and operational objectives:
 
-- Improved identity and access management.
-- Reduced risk of inappropriate access assignments.
+- Reduced risk of inappropriate resource access.
 - Alignment with the principle of least privilege.
-- Consistent departmental access configurations.
-- Improved employee onboarding procedures.
+- Improved departmental access consistency.
+- Reduced employee onboarding disruptions.
+- Improved administrative visibility and accountability.
 - Reduced identity-related compliance risks.
 
 ---
 
-## 8. Preventive Recommendations
+## 9. Preventive Recommendations
 
-To reduce the likelihood of similar incidents, 
+To reduce the likelihood of similar incidents,
 the following preventive measures are recommended:
 
 | Recommendation | Objective |
@@ -142,9 +153,9 @@ the following preventive measures are recommended:
 
 ---
 
-## 9. Supporting Evidence
+## 10. Supporting Evidence
 
-Supporting screenshots and configuration documentation 
+Supporting screenshots and configuration documentation
 are available within the project repository.
 
 - [Screenshot Evidence](../Screenshots/)
@@ -153,23 +164,22 @@ are available within the project repository.
 
 ---
 
-## 10. Incident Summary
+## 11. Incident Conclusion
 
-The investigation identified and remediated two 
-identity provisioning misconfigurations within the 
-Active Directory environment.
+The affected user's Active Directory configuration
+was successfully remediated and verified against
+the organization's departmental RBAC structure.
 
-Correcting the affected user's organizational unit 
-placement and security group membership restored 
-alignment with the organization's departmental 
-identity management and RBAC structure.
+This investigation demonstrated the importance of
+systematic troubleshooting, accurate identity provisioning,
+and post-remediation verification.
 
-The investigation, remediation, and configuration 
-verification were documented to support future 
-troubleshooting and improve onboarding procedures.
+The incident also highlighted opportunities to improve
+employee onboarding procedures through standardization,
+automation, and preventative access reviews.
 
 ---
 
-*This incident was completed within a simulated 
-enterprise environment for professional development 
+*This incident was completed within a simulated
+enterprise environment for professional development
 and cybersecurity portfolio purposes.*
