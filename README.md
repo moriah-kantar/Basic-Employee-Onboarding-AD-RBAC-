@@ -1,185 +1,46 @@
-# Incident Resolution Report — NMG-0047
+# Basic Employee Onboarding (AD)(RBAC)
 
-## 1. Incident Information
+## Problem Statement
 
-| Field | Details |
-|---|---|
-| Ticket Number | NMG-0047 |
-| Organization | Northstar Medical Group |
-| Reported By | Brian Foster, Operations Manager |
-| Affected User | Jane Cooper |
-| User Principal Name | jcooper@NMG.com |
-| Job Title | HR Payroll Specialist |
-| Incident Category | Identity and Access Management (IAM) |
-| Date Resolved | November 24, 2026 |
-| Status | Directory Configuration Remediated |
+Northstar Medical Group is a fictional healthcare organization whose previous managed service provider (MSP) left its Active Directory environment without a consistent departmental structure. IT provisioned employee accounts manually, with inconsistent naming conventions and security group assignments. This made it harder to verify who had access to sensitive systems and created HIPAA-related risks around inappropriate access to protected health information. The onboarding problem surfaced in ticket NMG-0047 when Jane Cooper, a new HR Payroll Specialist, could sign in but still could not access HR shared resources four days into her first week.
 
----
+## Solution Overview
 
-## 2. Problem Statement
+I built the NMG.com domain from scratch in VirtualBox by installing Active Directory Domain Services on Windows Server 2022 and promoting the server to a domain controller. I created four top-level organizational units (OUs) for Finance, HR, IT, and Operations, with a matching security group for each department. I used a flat role-based access control (RBAC) model and assigned users directly to their departmental security groups. I standardized account names and attributes, placed users in their departmental OUs, and used security group membership to manage access by role. For ticket NMG-0047, I corrected Jane Cooper’s OU placement by moving her from Operations to HR and added her to the HR-Users security group.
 
-Northstar Medical Group lacked a standardized employee
-onboarding and access provisioning process, resulting
-in inconsistent identity configurations within its
-Active Directory environment.
+## Video Walkthrough
 
-These inconsistencies introduced operational disruptions,
-potential unauthorized access, and identity-related
-compliance risks.
+[Video walkthrough coming soon](#)
 
-An investigation was required to identify and remediate
-the affected user's configuration while ensuring alignment
-with the organization's role-based access control
-(RBAC) structure.
+## Tools Used
 
----
+- Windows Server 2022
+- Active Directory Domain Services (AD DS)
+- Active Directory Users and Computers (ADUC)
+- Oracle VirtualBox
+- Group Policy
+- `dcdiag` for domain controller diagnostics
+- Role-based access control (RBAC)
+- GitHub
 
-## 3. Issue Reported
+## Project Timeline
 
-Jane Cooper was unable to access HR shared resources
-required to perform her assigned job responsibilities.
+- **Day 1 — Domain setup.** Created NMG.com, promoted the Windows Server VM to a domain controller, and ran `dcdiag`.
+- **Day 2 — Directory structure.** Created four departmental OUs and their corresponding security groups.
+- **Day 3 — User provisioning.** Created 15 test accounts with consistent naming and account attributes across four departments.
+- **Day 4 — Incident response (NMG-0047).** Investigated why Jane Cooper could sign in but received “Access Denied” on HR shared resources and saw different desktop policies, mapped drives, and restrictions from her teammates. The original ticket confirmed that her password worked, two restarts had failed to resolve the issue, and other HR employees were unaffected. I corrected her OU placement and added the missing HR-Users membership.
+- **Day 5 — Portfolio documentation.** Prepared the README, directory documentation, screenshots, and incident report for GitHub.
 
-Additionally, her desktop policies and mapped drives
-were inconsistent with those of her HR teammates.
+## Key Accomplishments
 
-The user was able to authenticate successfully, and
-restarting her workstation did not resolve the issue.
+- Built the NMG.com Active Directory domain from scratch in a Windows Server 2022 lab.
+- Designed four departmental OUs and implemented a flat RBAC model using matching security groups for 15 test accounts.
+- Diagnosed and corrected two onboarding errors in NMG-0047 involving OU placement and departmental security group membership.
 
----
+## Repository Structure
 
-## 4. Investigation
-
-Since the affected user could successfully authenticate,
-the investigation focused on identity configuration
-rather than credential-related issues.
-
-Using Active Directory Users and Computers (ADUC),
-the user's organizational unit placement and security
-group memberships were reviewed.
-
-### Investigation Findings
-
-| Configuration | Observed State | Expected State |
-|---|---|---|
-| Organizational Unit (OU) | Operations | HR |
-| Security Group | Operations-Users | HR-Users |
-| Authentication | Successful | Successful |
-
-The identified discrepancies were documented before
-any corrective actions were performed.
-
----
-
-## 5. Root Cause Analysis
-
-The incident originated from incorrect identity
-provisioning during the employee onboarding process.
-
-### Incorrect Organizational Unit Placement
-
-The incorrect OU placement resulted in the user's
-account being associated with an inappropriate scope
-for departmental Group Policies.
-
-### Incorrect Security Group Assignment
-
-The user's security group assignment did not align
-with her designated job responsibilities or intended
-resource access requirements.
-
-These were independent configuration issues requiring
-separate corrective actions.
-
----
-
-## 6. Remediation
-
-The following corrective actions were performed using
-Active Directory Users and Computers (ADUC):
-
-1. Moved Jane Cooper's account from the Operations OU
-   to the HR OU.
-2. Corrected the user's security group assignment
-   to HR-Users.
-3. Reviewed the updated account configuration.
-4. Captured screenshots to document the corrective actions.
-
----
-
-## 7. Verification
-
-The following configuration checks were completed
-after remediation:
-
-- [x] Verified the user account was located in the HR OU.
-- [x] Verified membership in the HR-Users security group.
-- [x] Confirmed alignment with the departmental RBAC model.
-- [x] Captured supporting screenshot evidence.
-- [x] Documented the investigation and corrective actions.
-
-End-to-end testing of shared resource access and
-Group Policy application would be the next validation
-step in a production environment.
-
----
-
-## 8. Security and Business Impact
-
-The corrected configuration supports the following
-security and operational objectives:
-
-- Reduced risk of inappropriate resource access.
-- Alignment with the principle of least privilege.
-- Improved departmental access consistency.
-- Reduced employee onboarding disruptions.
-- Improved administrative visibility and accountability.
-- Reduced identity-related compliance risks.
-
----
-
-## 9. Preventive Recommendations
-
-To reduce the likelihood of similar incidents,
-the following preventive measures are recommended:
-
-| Recommendation | Objective |
-|---|---|
-| Standardized onboarding checklist | Reduce provisioning errors |
-| OU placement verification | Ensure correct policy scope |
-| Security group validation | Prevent incorrect access assignments |
-| Periodic access reviews | Identify unauthorized or unnecessary access |
-| PowerShell provisioning automation | Reduce manual configuration errors |
-| Formal documentation procedures | Improve accountability and consistency |
-
----
-
-## 10. Supporting Evidence
-
-Supporting screenshots and configuration documentation
-are available within the project repository.
-
-- [Screenshot Evidence](../Screenshots/)
-- [Project Documentation](../Documentation/)
-- [Project Overview](../README.md)
-
----
-
-## 11. Incident Conclusion
-
-The affected user's Active Directory configuration
-was successfully remediated and verified against
-the organization's departmental RBAC structure.
-
-This investigation demonstrated the importance of
-systematic troubleshooting, accurate identity provisioning,
-and post-remediation verification.
-
-The incident also highlighted opportunities to improve
-employee onboarding procedures through standardization,
-automation, and preventative access reviews.
-
----
-
-*This incident was completed within a simulated
-enterprise environment for professional development
-and cybersecurity portfolio purposes.*
+| Folder | Contents |
+| --- | --- |
+| `Documentation/` | Domain setup notes, OU and security group design, user provisioning records, and the RBAC mapping. |
+| `Screenshots/` | Lab evidence covering domain setup, directory structure, user provisioning, and incident troubleshooting. |
+| `Incident-Reports/` | The NMG-0047 resolution report, including the root causes and corrective actions. |
